@@ -18,11 +18,13 @@ public class AuthorService {
 		return arepo.save(author);
 	}
 
-	public Author login(String authorName, String password) throws AuthorNotFoundException {
+	public Author login(String username, String password) throws AuthorNotFoundException {
 		Author a=new Author();
-		if(a.getAuthorName()==authorName && a.getpassword()==password) {
-			return arepo.findByAuthorNameAndPassword(authorName,password);
+		
+		if(a.getUsername().equals(username) && a.getPassword().equals(password)) {
+			System.out.println("in service"+username);
+			return arepo.findByUsernameAndPassword(username,password);
 		}
-		 throw new AuthorNotFoundException("Invalid User");
+		 throw new AuthorNotFoundException("Invalid Username or Password");
 	}
 }

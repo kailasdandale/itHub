@@ -29,7 +29,7 @@ public class ReaderService {
 		ResponceTempleteVo vo=new ResponceTempleteVo();
 		Reader r=repo.findByReaderId(readerId);
 		System.out.println("inVo Service");
-		String url="http://DIGITAL-BOOK/Books/"+r.getBookId()+"";
+		String url="http://DIGITAL-BOOK/api/books/v1/Books/"+r.getBookId()+"";
 		//http://ctsjava884.iiht.tech:1212/Books/
 		Books book=rt.getForObject(url, Books.class);
 				

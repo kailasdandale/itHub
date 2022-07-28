@@ -2,6 +2,7 @@ package com.cog.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +35,6 @@ public class AuthorController {
 		return "welcome";
 	}
 	
-	
-	
 	//Author can create Account//
 	@PostMapping("/sinup")
 	public  ResponseEntity<Author>createAccount(@RequestBody Author author){
@@ -43,17 +42,20 @@ public class AuthorController {
 		(aservice.createAccount(author),HttpStatus.CREATED);
 	}
 	//Author can login//
-	@GetMapping("/login/{authorName}/{pass}")
-	public ResponseEntity<Author>login(@PathVariable("authorName")String authorName,
-			@PathVariable("pass")String pass) throws AuthorNotFoundException{
+	@GetMapping("/login/{username}/{password}")
+	public ResponseEntity<Author>login(@PathVariable("username")String username,
+			@PathVariable("password")String password) throws AuthorNotFoundException{
 		
+		System.out.println(username);
+		System.out.println(password);
 		return new ResponseEntity<Author>(aservice.
-				login(authorName,pass),HttpStatus.OK);
+				login(username,password),HttpStatus.OK);
 	}
-	//add Book//
+	
+	//add new Book//
 	@PostMapping("/addBooks")
 	public ResponseEntity<Books>addBook(@RequestBody Books book){
-		String url="http://DIGITAL-BOOK/Books/addBook";
+		String url="http://DIGITAL-BOOK/api/books/v1/Books/addBook";
 		return new ResponseEntity<Books>
 		(rt.postForObject(url, book, Books.class),HttpStatus.CREATED);
 	}
@@ -70,13 +72,22 @@ public class AuthorController {
 	}
 	
 	
-	//update book data//
+	//update book data//-----
 	@PutMapping("update/{bookId}")
-	public ResponseEntity<Books>updateBook(@PathVariable int bookId){
-		String url="http://DIGITAL-BOOK/Books/addBook/"+bookId+"";
+	public com.cog.model.Books updateBook(@PathVariable int bookId,@RequestBody com.cog.model.Books book){
+	
+		String url="http://DIGITAL-BOOK/api/books/v1/Books/update/"+bookId+"";
+		rt.put(url, book, com.cog.model.Books.class);
+		return book;
+	}
+	
+	//getAll Books//
+	@GetMapping("/findAll")
+	 public ResponseEntity<List<Books>>findAll(){
+		String url="http://DIGITAL-BOOK/api/books/v1/Books/getAllBooks";
+		return new ResponseEntity<List<Books>>
+		(rt.getForObject(url, List.class),HttpStatus.OK);
 		
-		rt.put(url, Books.class);
-		return new ResponseEntity<Books>(HttpStatus.ACCEPTED);
 	}
 	
 }

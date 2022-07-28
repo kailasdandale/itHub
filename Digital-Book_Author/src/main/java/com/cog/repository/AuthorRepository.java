@@ -11,4 +11,6 @@ public interface AuthorRepository extends JpaRepository<Author, Integer>{
 
 	Author findByUsername(String username);
 
+	Author findByUsernameAndPassword(String username, String password);
+
 }

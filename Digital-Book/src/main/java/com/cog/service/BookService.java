@@ -42,8 +42,31 @@ public class BookService {
 	}
 
 	public Books update(int bookId, Books book) {
-		book.setBookId(bookId);
-		return brepo.save(book);
+		Books b=brepo.findByBookId(bookId);
+		
+		if(book.getBookName()!=null) {
+			b.setBookName(book.getBookName());
+		}
+		if(book.getBookPrice()!=0) {
+			b.setBookPrice(book.getBookPrice());
+		}
+		if(book.getAuthorName()!=null) {
+			b.setAuthorName(book.getAuthorName());
+		}
+		if(book.getCategory()!=null) {
+			b.setCategory(book.getCategory());
+		}
+		if(book.getPublishar()!=null) {
+			b.setPublishar(book.getPublishar());
+		}
+		if(book.getActive()!=null) {
+			b.setActive(book.getActive());
+		}
+		
+	//	book.setBookId(bookId);
+		
+		 brepo.save(b);
+		 return b;
 	}
 
 	public Books blockUnblock(int bookId, Books book) {

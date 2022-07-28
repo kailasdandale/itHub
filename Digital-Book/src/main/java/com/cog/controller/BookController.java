@@ -57,10 +57,11 @@ public class BookController {
 	
 	//update book data//
 	@PutMapping("/update/{bookId}")
-	public ResponseEntity<Books>updateBook(@PathVariable int bookId,
+	public Books updateBook(@PathVariable int bookId,
 			@RequestBody Books book){
+		System.out.println("in update ");
+	return	bservice.update(bookId,book);
 		
-		return new ResponseEntity<Books>(bservice.update(bookId,book),HttpStatus.ACCEPTED);
 		
 	}
 	@PutMapping("/blockUnlock/{bookId}")

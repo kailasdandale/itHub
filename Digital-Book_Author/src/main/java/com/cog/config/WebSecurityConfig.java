@@ -58,9 +58,12 @@ public class WebSecurityConfig  {
 // dont authenticate this particular request
 				.authorizeRequests()
 				
+			//	.antMatchers("/authenticate", "/api/books/v1/author/sinup").permitAll()
+				
 				.antMatchers("/authenticate", "/api/books/v1/author/**").permitAll()
-//				.antMatchers("/all/**").access("hasAnyRole('MANAGER','ADMIN')")
-				.antMatchers("/author/**").access("hasRole('AUTHOR')")
+				.antMatchers("/api/books/v1/author/sinup/**").access("hasAnyRole('author','ADMIN')")
+				.antMatchers("/api/books/v1/author/**").access("hasRole('AUTHOR')")
+				
 			//	.antMatchers("/admin/**").access("hasRole('ADMIN')")
 				
 				

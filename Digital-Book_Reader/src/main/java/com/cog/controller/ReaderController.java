@@ -19,40 +19,48 @@ import com.cog.model.Reader;
 import com.cog.service.ReaderService;
 
 @RestController
-@RequestMapping("/reader")
+@RequestMapping("api/books/v1/reader")
 public class ReaderController {
 
 	@Autowired
 	private RestTemplate rt;
 	@Autowired
 	private ReaderService rservice;
-	
-	//reader can search book//
+
+	// reader can search book//
 	@GetMapping("/search/{query}")
-	public ResponseEntity<List<Books>>searchBook
-	(@PathVariable("query")String query){
-		String url="http://DIGITAL-BOOK/Books/search?query="+query+"";
-		
-		return new ResponseEntity<List<Books>>(rt.getForObject(url, List.class),HttpStatus.OK);
+	public ResponseEntity<List<Books>> searchBook(@PathVariable("query") String query) {
+		String url = "http://DIGITAL-BOOK/api/books/v1/Books/search?query=" + query + "";
+
+		return new ResponseEntity<List<Books>>(rt.getForObject(url, List.class), HttpStatus.OK);
 	}
-	
-	//reader can buy book//
-	@PostMapping("/subscribe")//click on Book save BookId with Reader
-	public ResponseEntity<Reader>buyBook(@RequestBody Reader r){
-		
-		return new ResponseEntity<Reader>(rservice.save(r),HttpStatus.CREATED);
+
+	// reader can buy book//
+	@PostMapping("/subscribe") // click on Book save BookId with Reader
+	public ResponseEntity<Reader> buyBook(@RequestBody Reader r) {
+
+		return new ResponseEntity<Reader>(rservice.save(r), HttpStatus.CREATED);
 	}
+	//reader can read
 	@GetMapping("/{readerId}")
 	public Reader getReader(@PathVariable int readerId) {
 		return rservice.findByReaderId(readerId);
 	}
-	
-	//find subscribe books//
+
+	// find subscribe books//
 	@GetMapping("/findsubscribeBook/{readerId}")
 	public ResponceTempleteVo getReaderWithBook(@PathVariable int readerId) {
 		System.out.println("in reader controller");
-	return	rservice.getReaderWithBook(readerId);
-		
+		return rservice.getReaderWithBook(readerId);
+
 	}
-	
+
+	// only view unblock books
+	@GetMapping("/findAll")
+	public List<Books> findAll() {
+		System.out.println("in reader controller");
+		String url = "http://DIGITAL-BOOK/api/books/v1/Books/getAllBooks";
+		return rt.getForObject(url, List.class);
+	}
+
 }

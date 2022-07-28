@@ -48,12 +48,6 @@ public class Author {
 	public void setAuthorName(String authorName) {
 		this.authorName = authorName;
 	}
-	public String getpassword() {
-		return password;
-	}
-	public void setpassword(String password) {
-		this.password = password;
-	}
 	
 	public Author() {
 		super();
