@@ -1,0 +1,38 @@
+<form>
+    <label for="fname"><b>Enter Your Email</b></label><br>
+    <input  #htmlElement value  name="email"><br><br>
+    
+    <button type="submit"
+    (click)="find(htmlElement.value)"  class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">FindBooks</button>
+  </form>
+
+  <br>
+
+<table class="table table-success table-striped">
+    
+    <thead>
+        <tr>
+            <th>bookId</th>
+            <th>bookName</th>
+            <th>publishar</th>
+            <th>bookPrice</th>
+            <th>authorName</th>
+            <th>category</th>
+            <th>active</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let book of books">
+            <td>{{book.bookId}}</td>
+            <td>{{book.bookName}}</td>
+            <td>{{book.publishar}}</td>
+            <td>{{book.bookPrice}}</td>
+            <td>{{book.authorName}}</td>
+            <td>{{book.category}}</td>
+            <td>{{book.active}}</td>
+           
+    </tbody>
+
+
+  </table> 
