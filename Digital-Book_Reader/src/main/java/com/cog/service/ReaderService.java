@@ -1,11 +1,15 @@
 package com.cog.service;
 
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.cog.Vo.ResponceTempleteVo;
+import com.cog.exception.ReaderNotFound;
 import com.cog.model.Books;
 import com.cog.model.Reader;
 import com.cog.repository.ReaderRepo;
@@ -24,25 +28,35 @@ public class ReaderService {
 		return repo.save(r);
 	}
 
-	public ResponceTempleteVo getReaderWithBook(int readerId) {
+	public List<Books> getReaderWithBook(String email) {
 		
 		ResponceTempleteVo vo=new ResponceTempleteVo();
-		Reader r=repo.findByReaderId(readerId);
+		Reader r=repo.findByEmail(email);
 		System.out.println("inVo Service");
 		String url="http://DIGITAL-BOOK/api/books/v1/Books/"+r.getBookId()+"";
 		//http://ctsjava884.iiht.tech:1212/Books/
-		Books book=rt.getForObject(url, Books.class);
+		List<Books> book=rt.getForObject(url, List.class);
 				
 		vo.setReader(r);
-		vo.setBooks(book);
+	//	vo.setBooks(book);
 				
-		return vo;
+		return  book;
 	}
 
-	public Reader findByReaderId(int readerId) {
-		// TODO Auto-generated method stub
-		return repo.findByReaderId(readerId);
+	public Reader findByReaderId(int readerId) throws ReaderNotFound {
+		
+		Optional<Integer>r=Optional.ofNullable(readerId);
+		if(r.isPresent()) {
+		
+			r.get();
+			return	repo.findByReaderId(readerId);
+		}
+		throw new ReaderNotFound("reader not Found");	
+		
+		
 	}
+
+	
 	
 	
 }

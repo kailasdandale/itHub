@@ -61,8 +61,9 @@ public class WebSecurityConfig  {
 			//	.antMatchers("/authenticate", "/api/books/v1/author/sinup").permitAll()
 				
 				.antMatchers("/authenticate", "/api/books/v1/author/**").permitAll()
-				.antMatchers("/api/books/v1/author/sinup/**").access("hasAnyRole('author','ADMIN')")
+				.antMatchers("/api/books/v1/author/sinup/**").access("hasAnyRole('author','AUTHOR')")
 				.antMatchers("/api/books/v1/author/**").access("hasRole('AUTHOR')")
+				
 				
 			//	.antMatchers("/admin/**").access("hasRole('ADMIN')")
 				

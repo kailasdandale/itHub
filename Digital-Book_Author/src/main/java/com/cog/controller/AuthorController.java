@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ import com.cog.vo.Books;
 
 @RestController
 @RequestMapping("api/books/v1/author")
+@CrossOrigin("*")
 public class AuthorController {
 
 	@Autowired
@@ -43,13 +45,10 @@ public class AuthorController {
 	}
 	//Author can login//
 	@GetMapping("/login/{username}/{password}")
-	public ResponseEntity<Author>login(@PathVariable("username")String username,
-			@PathVariable("password")String password) throws AuthorNotFoundException{
-		
-		System.out.println(username);
-		System.out.println(password);
-		return new ResponseEntity<Author>(aservice.
-				login(username,password),HttpStatus.OK);
+	public ResponseEntity<Author>login(@PathVariable("username")String uname,
+			@PathVariable("password")
+	String pass) throws AuthorNotFoundException{
+		return new ResponseEntity<Author>(aservice.login(uname, pass),HttpStatus.ACCEPTED);
 	}
 	
 	//add new Book//
@@ -72,13 +71,21 @@ public class AuthorController {
 	}
 	
 	
+	@GetMapping("/{bookId}")
+	public Books findById(@PathVariable int bookId) {
+		
+		String url="http://DIGITAL-BOOK/api/books/v1/Books/"+bookId+"";
+		return rt.getForObject(url, Books.class);
+	}
+	
 	//update book data//-----
 	@PutMapping("update/{bookId}")
-	public com.cog.model.Books updateBook(@PathVariable int bookId,@RequestBody com.cog.model.Books book){
+	public Books updateBook(@PathVariable int bookId,@RequestBody com.cog.model.Books book){
 	
 		String url="http://DIGITAL-BOOK/api/books/v1/Books/update/"+bookId+"";
-		rt.put(url, book, com.cog.model.Books.class);
-		return book;
+		rt.put(url, book, Books.class);
+		
+		return findById(bookId);
 	}
 	
 	//getAll Books//

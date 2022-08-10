@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import com.cog.service.BookService;
 
 @RestController
 @RequestMapping("/api/books/v1/Books")
+@CrossOrigin("*")
 public class BookController {
 
 	@Autowired
@@ -43,7 +45,7 @@ public class BookController {
 	}
 	//findby bookId//
 	@GetMapping("/{bookId}")
-	public Books getBooks(@PathVariable int bookId) {
+	public List<Books> getBooks(@PathVariable int bookId) {
 		return bservice.findByBookId(bookId);
 	}
 	
@@ -57,12 +59,11 @@ public class BookController {
 	
 	//update book data//
 	@PutMapping("/update/{bookId}")
-	public Books updateBook(@PathVariable int bookId,
+	public void updateBook(@PathVariable int bookId,
 			@RequestBody Books book){
 		System.out.println("in update ");
-	return	bservice.update(bookId,book);
-		
-		
+		bservice.update(bookId,book);
+		//return bservice.findByBookId(bookId);
 	}
 	@PutMapping("/blockUnlock/{bookId}")
 	public ResponseEntity<Books>block_Unblock(@PathVariable int bookId, 

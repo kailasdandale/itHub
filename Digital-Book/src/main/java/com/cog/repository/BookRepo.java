@@ -10,7 +10,7 @@ import com.cog.model.Books;
 @Repository
 public interface BookRepo extends JpaRepository<Books, Integer>{
 
-	Books findByBookId(int bookId);
+	List<Books> findByBookId(int bookId);
 
 	@Query("SELECT b FROM Books b WHERE "+
 	"b.bookName LIKE CONCAT('%',:query, '%')"+

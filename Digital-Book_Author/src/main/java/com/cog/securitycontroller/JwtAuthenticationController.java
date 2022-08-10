@@ -19,7 +19,7 @@ import com.cog.secirityservice.JwtUserDetailsService;
 import com.cog.utils.JwtTokenUtil;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 public class JwtAuthenticationController {
 	@Autowired
 	private AuthenticationManager authenticationManager;

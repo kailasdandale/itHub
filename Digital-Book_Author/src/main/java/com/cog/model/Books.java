@@ -1,19 +1,7 @@
 package com.cog.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-@Entity
 public class Books {
 
-	@Override
-	public String toString() {
-		return "Books [bookId=" + bookId + ", bookName=" + bookName + ", publishar=" + publishar + ", bookPrice="
-				+ bookPrice + ", authorName=" + authorName + ", category=" + category + ", active=" + active + "]";
-	}
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int bookId;
 	private String bookName;
 	private String publishar;
@@ -21,20 +9,6 @@ public class Books {
 	private String authorName;
 	private String category;
 	private String active;
-	
-	
-	public String getCategory() {
-		return category;
-	}
-	public void setCategory(String category) {
-		this.category = category;
-	}
-	public String getActive() {
-		return active;
-	}
-	public void setActive(String active) {
-		this.active = active;
-	}
 	public int getBookId() {
 		return bookId;
 	}
@@ -64,6 +38,18 @@ public class Books {
 	}
 	public void setAuthorName(String authorName) {
 		this.authorName = authorName;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public String getActive() {
+		return active;
+	}
+	public void setActive(String active) {
+		this.active = active;
 	}
 	
 }
