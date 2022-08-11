@@ -13,7 +13,7 @@ public class DigitalBookReaderApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DigitalBookReaderApplication.class, args);
-	
+		System.out.println("reserApp");
 		System.out.println("Reader Start");
 	}
 	@Bean
