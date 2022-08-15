@@ -23,17 +23,27 @@ public class EmailService {
 	private String formEmail;
 
 	
-	public String sendEmailreader(String email) {
+	public void sendEmailreader(String email) {
 
+		System.out.println("Email service :"+email+"+"+formEmail);
 		EmailEntity e=new EmailEntity();
+		
+		SimpleMailMessage msg=new SimpleMailMessage();
+		msg.setTo(email);
+		msg.setFrom(formEmail);
+		msg.setText("thank you for choose this book");
+		msg.setSubject(" Susscribe book");
+		sender.send(msg);
+		System.out.println("send");
+//		return "send";
 		//e.setFormEmail(formEmail);
-		try {
-
-			sendEmail(email);
-		} catch (Exception e2) {
-			e2.printStackTrace();
-		}
-		return "email can not send";
+//		try {
+//
+//			sendEmail(email);
+//		} catch (Exception e2) {
+//			e2.printStackTrace();
+//		}
+//		return "email can not send";
 	}
 	
 	public void sendEmail(String email) {
