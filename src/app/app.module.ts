@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -14,6 +14,10 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchComponent } from './Mycomponant/search/search.component';
 import { AddBookComponent } from './Mycomponant/add-book/add-book.component';
 import { FundsubscribebookComponent } from './Mycomponant/fundsubscribebook/fundsubscribebook.component';
+import { HomeComponent } from './Mycomponant/home/home.component';
+import { UpdateBookComponent } from './Mycomponant/update-book/update-book.component';
+import { AuthGardGuard } from './auth-gard.guard';
+ import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 const routes:Routes =[
  
@@ -25,8 +29,16 @@ const routes:Routes =[
   { path:'reader',component:ReaderComponent},
   { path:'reader/:id',component:ReaderComponent},
   { path:'search/:id',component:SearchComponent},
-  { path:'addbook',component:AddBookComponent},
+  {
+     path:'addbook',component:AddBookComponent,
+     canActivate:[AuthGardGuard],
+     data:{
+       expetedRoules:['Author']
+     }
+},
+  { path:'home',component:HomeComponent},
   { path:'subscribe',component:FundsubscribebookComponent},
+  { path:'updateBook',component:UpdateBookComponent},
 ]
 
 @NgModule({
@@ -40,13 +52,21 @@ const routes:Routes =[
     ReaderComponent,
     SearchComponent,
     AddBookComponent,
-    FundsubscribebookComponent
+    FundsubscribebookComponent,
+    HomeComponent,
+    UpdateBookComponent
     
   ],
   imports: [
     BrowserModule,HttpClientModule,RouterModule.forRoot(routes),FormsModule,ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    // {
+    //   provide:HTTP_INTERCEPTORS,
+    //   useClass: AuthInterceptor,
+    //   multi :true
+    // }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

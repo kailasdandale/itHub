@@ -16,7 +16,7 @@ export class SearchComponent implements OnInit {
 
   constructor(public service:BookServiceService,private a:ActivatedRoute,private http:HttpClient){ }
  
-  private host1:string="http://ctsjava884.iiht.tech:1212/api/books/v1/Books/6";
+ 
   bd:any=(this.a.snapshot.paramMap.get("id"));
  
     onSerch(msg:any){

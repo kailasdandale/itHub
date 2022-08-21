@@ -15,7 +15,7 @@ export class ReaderComponent implements OnInit {
    bookId:any=(this.a.snapshot.paramMap.get("id"));
  
 
-//this.a.paramMap.subscribe(d=>(d.get("id")));
+
   onSubmit(data:any){
 
     this.http.post('http://ctsjava884.iiht.tech:1313/api/books/v1/reader/subscribe',data)
@@ -31,6 +31,7 @@ export class ReaderComponent implements OnInit {
 
 
   ngOnInit(): void {
+  
     console.log(this.bookId)
     this.a.paramMap.subscribe(d=>console.log(d.get("id")))
 
